@@ -1,0 +1,24 @@
+#!/bin/bash
+
+PATH=/opt/local/bin:/opt/local/sbin:/usr/bin:/usr/sbin
+source ~/.bashrc
+
+if [ -z "$2" ]
+  then
+  echo "Usage: $0 <data_type> <file>"
+  echo "  eg $0 postgres my_table.date.gz"
+  exit
+fi
+
+targetdir="/$MANTA_USER/stor/backups/$1/$(hostname)"
+file=$(echo -n $2 | awk 'BEGIN{FS="/"}{ print ( $(NF-0) ) }')
+
+mmkdir -p $targetdir
+mput -f $2 $targetdir/$file
+
+if [ $(md5sum $2 | awk '{print $1}') != $(echo -n "$targetdir/$file" | mjob create -q -o md5sum | awk '{print $1}') ]
+  then
+  echo "The checksum for $2 doesn't match the checksum for $targetdir/$file.  Backup failed.Exiting..."
+  exit 1
+fi
+
