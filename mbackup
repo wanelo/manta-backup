@@ -22,9 +22,4 @@ if [ $(md5sum $2 | awk '{print $1}') == $(echo -n "$targetdir/$file" | mjob crea
 fi
 
 echo "[$log_date] Backing up $2 to $targetdir/$file..."
-mput -q -f $2 $targetdir/$file
-
-if [ $(md5sum $2 | awk '{print $1}') != $(echo -n "$targetdir/$file" | mjob create -q -o md5sum 2> /dev/null | awk '{print $1}') ]; then
-  echo "[$log_date] The checksum for $2 doesn't match the checksum for $targetdir/$file.  Backup failed.  Exiting..."
-  exit 1
-fi
+mput -q -f $2 -H content-md5:$(cat $2 | openssl md5 -binary | openssl enc -base64) $targetdir/$file
