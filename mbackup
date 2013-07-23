@@ -12,18 +12,19 @@ fi
 
 targetdir="/$MANTA_USER/stor/backups/$1/$(hostname)"
 file=$(echo -n $2 | awk 'BEGIN{FS="/"}{ print ( $(NF-0) ) }')
+log_date=$(date '+%d/%b/%Y:%H:%M:%S %z')
 
 mmkdir -p $targetdir
 
 if [ $(md5sum $2 | awk '{print $1}') == $(echo -n "$targetdir/$file" | mjob create -q -o md5sum 2> /dev/null | awk '{print $1}') ]; then
-  echo "$targetdir/$file already exists and has the same checksum as $2.  Skipping..."
+  echo "[$log_date] $targetdir/$file already exists and has the same checksum as $2.  Skipping..."
   exit 0
 fi
 
-echo "Backing up $2 to $targetdir/$file..."
+echo "[$log_date] Backing up $2 to $targetdir/$file..."
 mput -q -f $2 $targetdir/$file
 
 if [ $(md5sum $2 | awk '{print $1}') != $(echo -n "$targetdir/$file" | mjob create -q -o md5sum 2> /dev/null | awk '{print $1}') ]; then
-  echo "The checksum for $2 doesn't match the checksum for $targetdir/$file.  Backup failed.  Exiting..."
+  echo "[$log_date] The checksum for $2 doesn't match the checksum for $targetdir/$file.  Backup failed.  Exiting..."
   exit 1
 fi
