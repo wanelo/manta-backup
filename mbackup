@@ -14,7 +14,7 @@ targetdir="/$MANTA_USER/stor/backups/$1/$(hostname)"
 file=$(echo -n $2 | awk 'BEGIN{FS="/"}{ print ( $(NF-0) ) }')
 
 mmkdir -p $targetdir
-mput -f $2 $targetdir/$file
+mput -q -f $2 $targetdir/$file
 
 if [ $(md5sum $2 | awk '{print $1}') != $(echo -n "$targetdir/$file" | mjob create -q -o md5sum | awk '{print $1}') ]
   then
