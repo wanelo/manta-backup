@@ -16,7 +16,7 @@ log_date=$(date '+%d/%b/%Y:%H:%M:%S %z')
 
 mmkdir -p $targetdir
 
-if [ "$(md5sum $2 | cut -d ' ' -f 1)" == "$(mmd5 $targetdir/$file | cut -d ' ' -f 1)" ]; then
+if [ "$(md5sum $2 | cut -d ' ' -f 1)" == "$(mmd5 $targetdir/$file | cut -d ' ' -f 1 2> /dev/null)" ]; then
   echo "[$log_date] $targetdir/$file already exists and has the same checksum as $2.  Skipping..."
   exit 0
 fi
