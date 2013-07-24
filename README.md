@@ -1,5 +1,6 @@
 ###Requirements
-Requires a Joyent cloud account and Joyent's node.js cli tools (_npm install manta_).  See docs here: http://apidocs.joyent.com/manta/
+Requires a Joyent cloud account and Joyent's node.js cli tools (_npm install manta_).
+See docs here: http://apidocs.joyent.com/manta/
 
 
 ###Usage
