@@ -2,6 +2,7 @@
 
 PATH=/opt/local/bin:/opt/local/sbin:/usr/bin:/usr/sbin
 source ~/.bashrc
+source ~/.manta_config
 
 if [ -z "$2" ]
   then
