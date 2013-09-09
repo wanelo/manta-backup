@@ -3,6 +3,7 @@
 PATH=/opt/local/bin:/opt/local/sbin:/usr/bin:/usr/sbin
 source ~/.bashrc
 source ~/.manta_config
+source ~/.mbackup_config
 
 if [ -z "$2" ]
   then
@@ -25,7 +26,7 @@ fi
 echo "[$log_date] Backing up $2 to $targetdir/$file..."
 mput -q -f $2 -H content-md5:$(cat $2 | openssl md5 -binary | openssl enc -base64) $targetdir/$file
 
-# Report errors during the mput stage. Configure the 'errors_email' variable in .manta_config
+# Report errors during the mput stage. Configure the 'errors_email' variable in .mbackup_config
 if [ "$?" != "0" ]; then
   echo "mbackup encountered errors while transferring $file to $targetdir." | mailx $ERRORS_EMAIL
 fi
