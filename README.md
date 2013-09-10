@@ -1,12 +1,12 @@
 ###Requirements
-Requires a Joyent cloud account and Joyent's node.js cli tools - _npm install manta_.
+Requires a Joyent cloud account and Joyent's node.js cli tools - `npm install manta`.
 See docs here: http://apidocs.joyent.com/manta/
 
 
 ###Usage
-Use _mbackup_ to push files to Joyent's Manta service.  _mbackup_ will run a checksum via Manta on the remote file and compare to your local file.  If the local file and remote file checksums don't match, the script will exit with an error.
+Use `mbackup` to push files to Joyent's Manta service.  `mbackup` will run a checksum via Manta on the remote file and compare to your local file.  If the local file and remote file checksums don't match, the script will exit with an error.
 
-For simplicity, _mbackup_ will by default gzip and push your files to a 'backups' directory, sub-organized by data type and hostname.  For example:
+For simplicity, `mbackup` will by default gzip and push your files to `/$MANTA_USER/stor/backups/$1/your_hostname/filename.gz`, organizing further sub-directories by data type and hostname.  For example:
 
 ```
 mbackup postgres my_table.date.gz
