@@ -10,9 +10,9 @@ if [ -z "$2" ]; then
 fi
 
 if [ -z "$3" ]; then
-  targetdir="$3"
+  targetdir="/$MANTA_USER/stor/backups/$1/$(hostname)"
 else
-  targetdir="/$MANTA_USER/stor/backups/$1/$(hostname)"  
+  targetdir="$3"
 fi
 
 file=$(echo -n $2 | awk 'BEGIN{FS="/"}{ print ( $(NF-0) ) }')
