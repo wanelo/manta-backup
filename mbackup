@@ -3,14 +3,18 @@
 source ~/.manta_config
 source ~/.mbackup_config
 
-if [ -z "$2" ]
-  then
-  echo "Usage: $0 <data_type> <file>"
-  echo "  eg $0 postgres my_table.date.gz"
+if [ -z "$2" ]; then
+  echo "Usage: $0 <data_type> <file> <target_path (optional)>"
+  echo "  eg $0 postgres my_table.date.gz /$MANTA_USER/stor/postgres/your_dir"
   exit
 fi
 
-targetdir="/$MANTA_USER/stor/backups/$1/$(hostname)"
+if [ -z "$3" ]; then
+  targetdir="$3"
+else
+  targetdir="/$MANTA_USER/stor/backups/$1/$(hostname)"  
+fi
+
 file=$(echo -n $2 | awk 'BEGIN{FS="/"}{ print ( $(NF-0) ) }')
 log_date=$(date '+%d/%b/%Y:%H:%M:%S %z')
 
