@@ -16,3 +16,5 @@ will place a file called 'my_table.date.gz' in Manta under your stor/backups 'di
 > mls /$MANTA_USER/stor/backups/postgres/$(hostname)/
 my_table.date.gz
 ```
+
+Alternatively, you can specify a target path as the 3rd argument.
