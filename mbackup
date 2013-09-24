@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -x
-
 source $HOME/.manta_config
 source $HOME/.mbackup_config
 
