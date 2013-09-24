@@ -26,7 +26,7 @@ if [ "$(md5sum $2 | cut -d ' ' -f 1)" == "$(mmd5 $targetdir/$file 2>/dev/null | 
 fi
 
 echo "[$log_date] Backing up $2 to $targetdir/$file..."
-mput -q -f $2 -H content-md5:$(cat $2 | openssl md5 -binary | openssl enc -base64) $targetdir/$file
+mput -f $2 -H content-md5:$(cat $2 | openssl md5 -binary | openssl enc -base64) $targetdir/$file
 
 # Report errors during the mput stage. Configure the 'errors_email' variable in .mbackup_config
 if [ "$?" != "0" ]; then
