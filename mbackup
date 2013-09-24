@@ -2,8 +2,8 @@
 
 set -x
 
-source ~/.manta_config
-source ~/.mbackup_config
+source $HOME/.manta_config
+source $HOME/.mbackup_config
 
 if [ -z "$2" ]; then
   echo "Usage: $0 <data_type> <file> <target_path (optional)>"
